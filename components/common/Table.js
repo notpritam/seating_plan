@@ -1,257 +1,159 @@
 "use client";
-import * as React from "react";
-import {
-  ContentBox,
-  ContentBoxHeader,
-  ContentBoxParagraph,
-} from "../demo/ContentBox";
-import AutoSizer from "../AutoSizer";
-import Grid from "../Grid";
-import ScrollSync from "./ScrollSync";
-import clsx from "clsx";
-import styles from "./ScrollSync.example.css";
-import scrollbarSize from "dom-helpers/scrollbarSize";
+import React, { useEffect, useState } from "react";
+import { Avatar } from "../ui/avatar";
 
-const LEFT_COLOR_FROM = hexToRgb("#471061");
-const LEFT_COLOR_TO = hexToRgb("#BC3959");
-const TOP_COLOR_FROM = hexToRgb("#000000");
-const TOP_COLOR_TO = hexToRgb("#333333");
+const Table = ({ table }) => {
+  console.log(table, "this is table");
+  const arr = new Array(9).fill("x");
 
-export default class GridExample extends React.PureComponent {
-  constructor(props, context) {
-    super(props, context);
+  const [loading, setLoading] = useState(true);
 
-    this.state = {
-      columnWidth: 75,
-      columnCount: 50,
-      height: 300,
-      overscanColumnCount: 0,
-      overscanRowCount: 5,
-      rowHeight: 40,
-      rowCount: 100,
-    };
+  const [columnA, setColumnA] = useState([]);
+  const [columnB, setColumnB] = useState([]);
+  const [columnC, setColumnC] = useState([]);
+  const [columnD, setColumnD] = useState([]);
+  const [columnE, setColumnE] = useState([]);
+  const [columnF, setColumnF] = useState([]);
+  const [columnG, setColumnG] = useState([]);
 
-    this._renderBodyCell = this._renderBodyCell.bind(this);
-    this._renderHeaderCell = this._renderHeaderCell.bind(this);
-    this._renderLeftSideCell = this._renderLeftSideCell.bind(this);
-  }
+  useEffect(() => {
+    setColumnA([]);
+    setColumnB([]);
+    setColumnC([]);
+    setColumnD([]);
+    setColumnE([]);
+    setColumnF([]);
+    setColumnG([]);
+    for (let i = 0; i < table.length; i++) {
+      const rowA = [];
+      const rowB = [];
+      const rowC = [];
+      const rowD = [];
+      const rowE = [];
+      const rowF = [];
+      const rowG = [];
 
-  render() {
-    const {
-      columnCount,
-      columnWidth,
-      height,
-      overscanColumnCount,
-      overscanRowCount,
-      rowHeight,
-      rowCount,
-    } = this.state;
-
-    return (
-      <ContentBox>
-        <ScrollSync>
-          {({
-            clientHeight,
-            clientWidth,
-            onScroll,
-            scrollHeight,
-            scrollLeft,
-            scrollTop,
-            scrollWidth,
-          }) => {
-            const x = scrollLeft / (scrollWidth - clientWidth);
-            const y = scrollTop / (scrollHeight - clientHeight);
-
-            const leftBackgroundColor = mixColors(
-              LEFT_COLOR_FROM,
-              LEFT_COLOR_TO,
-              y
-            );
-            const leftColor = "#ffffff";
-            const topBackgroundColor = mixColors(
-              TOP_COLOR_FROM,
-              TOP_COLOR_TO,
-              x
-            );
-            const topColor = "#ffffff";
-            const middleBackgroundColor = mixColors(
-              leftBackgroundColor,
-              topBackgroundColor,
-              0.5
-            );
-            const middleColor = "#ffffff";
-
-            return (
-              <div className={styles.GridRow}>
-                <div
-                  className={styles.LeftSideGridContainer}
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    color: leftColor,
-                    backgroundColor: `rgb(${topBackgroundColor.r},${topBackgroundColor.g},${topBackgroundColor.b})`,
-                  }}
-                >
-                  <Grid
-                    cellRenderer={this._renderLeftHeaderCell}
-                    className={styles.HeaderGrid}
-                    width={columnWidth}
-                    height={rowHeight}
-                    rowHeight={rowHeight}
-                    columnWidth={columnWidth}
-                    rowCount={1}
-                    columnCount={1}
-                  />
-                </div>
-                <div
-                  className={styles.LeftSideGridContainer}
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: rowHeight,
-                    color: leftColor,
-                    backgroundColor: `rgb(${leftBackgroundColor.r},${leftBackgroundColor.g},${leftBackgroundColor.b})`,
-                  }}
-                >
-                  <Grid
-                    overscanColumnCount={overscanColumnCount}
-                    overscanRowCount={overscanRowCount}
-                    cellRenderer={this._renderLeftSideCell}
-                    columnWidth={columnWidth}
-                    columnCount={1}
-                    className={styles.LeftSideGrid}
-                    height={height - scrollbarSize()}
-                    rowHeight={rowHeight}
-                    rowCount={rowCount}
-                    scrollTop={scrollTop}
-                    width={columnWidth}
-                  />
-                </div>
-                <div className={styles.GridColumn}>
-                  <AutoSizer disableHeight>
-                    {({ width }) => (
-                      <div>
-                        <div
-                          style={{
-                            backgroundColor: `rgb(${topBackgroundColor.r},${topBackgroundColor.g},${topBackgroundColor.b})`,
-                            color: topColor,
-                            height: rowHeight,
-                            width: width - scrollbarSize(),
-                          }}
-                        >
-                          <Grid
-                            className={styles.HeaderGrid}
-                            columnWidth={columnWidth}
-                            columnCount={columnCount}
-                            height={rowHeight}
-                            overscanColumnCount={overscanColumnCount}
-                            cellRenderer={this._renderHeaderCell}
-                            rowHeight={rowHeight}
-                            rowCount={1}
-                            scrollLeft={scrollLeft}
-                            width={width - scrollbarSize()}
-                          />
-                        </div>
-                        <div
-                          style={{
-                            backgroundColor: `rgb(${middleBackgroundColor.r},${middleBackgroundColor.g},${middleBackgroundColor.b})`,
-                            color: middleColor,
-                            height,
-                            width,
-                          }}
-                        >
-                          <Grid
-                            className={styles.BodyGrid}
-                            columnWidth={columnWidth}
-                            columnCount={columnCount}
-                            height={height}
-                            onScroll={onScroll}
-                            overscanColumnCount={overscanColumnCount}
-                            overscanRowCount={overscanRowCount}
-                            cellRenderer={this._renderBodyCell}
-                            rowHeight={rowHeight}
-                            rowCount={rowCount}
-                            width={width}
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </AutoSizer>
-                </div>
-              </div>
-            );
-          }}
-        </ScrollSync>
-      </ContentBox>
-    );
-  }
-
-  _renderBodyCell({ columnIndex, key, rowIndex, style }) {
-    if (columnIndex < 1) {
-      return;
-    }
-
-    return this._renderLeftSideCell({ columnIndex, key, rowIndex, style });
-  }
-
-  _renderHeaderCell({ columnIndex, key, rowIndex, style }) {
-    if (columnIndex < 1) {
-      return;
-    }
-
-    return this._renderLeftHeaderCell({ columnIndex, key, rowIndex, style });
-  }
-
-  _renderLeftHeaderCell({ columnIndex, key, style }) {
-    return (
-      <div className={styles.headerCell} key={key} style={style}>
-        {`C${columnIndex}`}
-      </div>
-    );
-  }
-
-  _renderLeftSideCell({ columnIndex, key, rowIndex, style }) {
-    const rowClass =
-      rowIndex % 2 === 0
-        ? columnIndex % 2 === 0
-          ? styles.evenRow
-          : styles.oddRow
-        : columnIndex % 2 !== 0
-        ? styles.evenRow
-        : styles.oddRow;
-    const classNames = clsx(rowClass, styles.cell);
-
-    return (
-      <div className={classNames} key={key} style={style}>
-        {`R${rowIndex}, C${columnIndex}`}
-      </div>
-    );
-  }
-}
-
-function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
+      for (let j = 0; j < table[i].length; j++) {
+        const item = table[i][j];
+        switch (item.column) {
+          case "A":
+            rowA.push(item);
+            break;
+          case "B":
+            rowB.push(item);
+            break;
+          case "C":
+            rowC.push(item);
+            break;
+          case "D":
+            rowD.push(item);
+            break;
+          case "E":
+            rowE.push(item);
+            break;
+          case "F":
+            rowF.push(item);
+            break;
+          case "G":
+            rowG.push(item);
+            break;
+          default:
+            // Handle other cases if needed
+            break;
+        }
       }
-    : null;
-}
 
-/**
- * Ported from sass implementation in C
- * https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
- */
-function mixColors(color1, color2, amount) {
-  const weight1 = amount;
-  const weight2 = 1 - amount;
+      setColumnA((prevColumnA) => [...prevColumnA, rowA]);
+      setColumnB((prevColumnB) => [...prevColumnB, rowB]);
+      setColumnC((prevColumnC) => [...prevColumnC, rowC]);
+      setColumnD((prevColumnD) => [...prevColumnD, rowD]);
+      setColumnE((prevColumnE) => [...prevColumnE, rowE]);
+      setColumnF((prevColumnF) => [...prevColumnF, rowF]);
+      setColumnG((prevColumnG) => [...prevColumnG, rowG]);
 
-  const r = Math.round(weight1 * color1.r + weight2 * color2.r);
-  const g = Math.round(weight1 * color1.g + weight2 * color2.g);
-  const b = Math.round(weight1 * color1.b + weight2 * color2.b);
+      setLoading(false);
+    }
+  }, [table]);
 
-  return { r, g, b };
-}
+  console.log(columnG, "this is column g");
+  function getInitials(name) {
+    // Split the name into words based on spaces
+    const words = name.split(" ");
+
+    // Initialize an empty string to store the initials
+    let initials = "";
+
+    // Loop through each word and add the first character to the initials string
+    for (let i = 0; i < words.length; i++) {
+      initials += words[i][0];
+    }
+
+    // Convert the initials to uppercase
+    initials = initials.toUpperCase();
+
+    return initials;
+  }
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
+  return (
+    <div className="overflow-auto max-h-[60vh]">
+      <table className="table-fixed ">
+        <thead>
+          <tr className="text-left">
+            <th className="w-10 p-2 sticky left-0 bg-indigo-900 text-white">
+              Row
+            </th>
+            <th className="w-[500px] p-2 bg-gray-600">G</th>
+            <th className=" p-2 bg-gray-600">F</th>
+            <th className=" p-2 bg-gray-600">E</th>
+            <th className=" p-2 bg-gray-600">D</th>
+            <th className=" p-2 bg-gray-600">C</th>
+            <th className=" p-2 bg-gray-600">B</th>
+            <th className=" p-2 bg-gray-600">A</th>
+          </tr>
+        </thead>
+        <tbody>
+          {arr.map((item, index) => {
+            return (
+              <tr key={index} className="text-left">
+                <td className="w-10 p-2 sticky left-0 bg-indigo-800">
+                  {index + 1}
+                </td>
+                <td className="w-[500px] flex gap-4 p-2">
+                  {columnG[index].map((cell) => (
+                    <div className="h-[150px] flex flex-col text-center justify-center items-center w-[150px] border rounded-lg">
+                      <Avatar className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700">
+                        {getInitials(cell.name)}
+                      </Avatar>
+                      <span>{cell.name}</span>
+                    </div>
+                  ))}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Table;
+
+// const getCellIte = ({ tableList }) => {
+//   return (
+//     <td className="w-[500px] flex gap-4 p-2">
+//       {tableList[index].map((cell) => (
+//         <div className="h-[150px] flex flex-col text-center justify-center items-center w-[150px] border rounded-lg">
+//           <Avatar className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700">
+//             {getInitials(cell.name)}
+//           </Avatar>
+//           <span>{cell.name}</span>
+//         </div>
+//       ))}
+//     </td>
+//   );
+// };
