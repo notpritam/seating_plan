@@ -12,6 +12,7 @@ const Table = ({ table }) => {
 
   const updateSeat = useUser((state) => state.updateCol);
   const updateRow = useUser((state) => state.updateRow);
+  const searchedId = useUser((state) => state.searchedId);
 
   const [columnA, setColumnA] = useState([]);
   const [columnB, setColumnB] = useState([]);
@@ -80,8 +81,14 @@ const Table = ({ table }) => {
   }, [table]);
 
   useEffect(() => {
-    handle();
+    handle({ userId });
   }, [loading]);
+
+  useEffect(() => {
+    handle({ userId: searchedId });
+
+    console.log("this is searcjedId", searchedId);
+  }, [searchedId]);
 
   console.log(columnG, "this is column g");
   function getInitials(name) {
@@ -98,7 +105,7 @@ const Table = ({ table }) => {
     return initials;
   }
 
-  const handle = () => {
+  const handle = ({ userId }) => {
     const divRef = document.getElementById(userId);
     if (divRef) {
       divRef.scrollIntoView({ behavior: "smooth" });
@@ -106,6 +113,7 @@ const Table = ({ table }) => {
     console.log(divRef);
   };
 
+  useEffect(() => {}, []);
   function generateUniqueIdFromString(inputString) {
     const uniqueId = inputString.replace(/\s+/g, "").toLowerCase();
     return uniqueId;
@@ -123,6 +131,9 @@ const Table = ({ table }) => {
             const borderBlue =
               cellId == userId ? "border-indigo-900 border-[4px] " : "";
 
+            const searchedDesign =
+              cellId == searchedId ? "border-green-600 border-[4px] " : "";
+
             if (cellId == userId) {
               updateSeat(columnName);
               updateRow(index + 1);
@@ -131,7 +142,7 @@ const Table = ({ table }) => {
             return (
               <div
                 id={cellId}
-                className={`h-[100px] bg-gray-950 flex flex-col gap-2 text-center justify-center items-center w-[100px] ${borderBlue}  border border-gray-600 rounded-lg ${opacity}`}
+                className={`h-[100px] bg-gray-950 flex flex-col gap-2 text-center justify-center items-center w-[100px] ${borderBlue} ${searchedDesign}  border border-gray-600 rounded-lg ${opacity}`}
               >
                 <Avatar className="flex items-center justify-center h-[2rem] w-[2rem] border border-gray-700">
                   {getInitials(cell.name)}
