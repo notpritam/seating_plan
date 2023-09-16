@@ -1,26 +1,38 @@
 "use client";
 
-import { batch1arr, batch2arr, batch3arr } from "@/lib/components/SeatingList";
+import * as React from "react";
 import {
-  Command,
+  Calculator,
+  Calendar,
+  CreditCard,
+  Settings,
+  Smile,
+  User,
+} from "lucide-react";
+
+import {
+  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "../ui/command";
+} from "@/components/ui/command";
+import { batch1arr, batch2arr, batch3arr } from "@/lib/components/SeatingList";
 import { useUser } from "@/lib/store/store";
 
-const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
-  const updateBatch = useUser((state) => state.updateBatch);
+export function SearchUser({ setOpen, open }) {
+  const searchedUser = useUser((state) => state.searchedUser);
+
+  const setSearchedUser = useUser((state) => state.updateSearchedUser);
   return (
-    <Command className="dark overflow-hidden  flex-1 w-full ">
+    <CommandDialog className="dark" open={open} onOpenChange={setOpen}>
       <CommandInput
         placeholder="Type a name or search..."
-        value={selectedUser}
+        value={searchedUser}
         onValueChange={(value) => {
-          setSelectedUser(value);
+          setSearchedUser(value);
         }}
       />
       <CommandList className="h-full ">
@@ -28,11 +40,10 @@ const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
         <CommandGroup heading="Batch 1">
           {batch1arr.map((item, index) => (
             <CommandItem
-              onSelect={(currentValue) => {
-                console.log(currentValue);
-                setSelectedUser(currentValue);
-                updateBatch(1);
-              }}
+              // onSelect={(currentValue) => {
+              //   console.log(currentValue);
+              //   setSearchedUser(currentValue);
+              // }}
               key={index}
             >
               {item}
@@ -44,11 +55,10 @@ const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
         <CommandGroup heading="Batch 2">
           {batch2arr.map((item, index) => (
             <CommandItem
-              onSelect={(currentValue) => {
-                console.log(currentValue);
-                setSelectedUser(currentValue);
-                updateBatch(2);
-              }}
+              // onSelect={(currentValue) => {
+              //   console.log(currentValue);
+              //   setSearchedUser(currentValue);
+              // }}
               key={index}
             >
               {item}
@@ -59,11 +69,10 @@ const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
         <CommandGroup heading="Batch 3">
           {batch3arr.map((item, index) => (
             <CommandItem
-              onSelect={(currentValue) => {
-                console.log(currentValue);
-                setSelectedUser(currentValue);
-                updateBatch(3);
-              }}
+              // onSelect={(currentValue) => {
+              //   console.log(currentValue);
+              //   setSearchedUser(currentValue);
+              // }}
               key={index}
             >
               {item}
@@ -71,8 +80,6 @@ const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
           ))}
         </CommandGroup>
       </CommandList>
-    </Command>
+    </CommandDialog>
   );
-};
-
-export default SelectUser;
+}

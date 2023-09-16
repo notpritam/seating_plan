@@ -7,8 +7,15 @@ import { FiSearch } from "react-icons/fi";
 import Sidebar from "./Sidebar";
 import { SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
+import { SearchUser } from "./SearchUser";
+import { useState } from "react";
 
 const Header = ({ text }) => {
+  const loadSearchBar = (e) => {
+    setOpen((open) => !open);
+  };
+  const [open, setOpen] = useState(false);
+
   const logout = useUser((state) => state.logout);
   return (
     <>
@@ -30,7 +37,10 @@ const Header = ({ text }) => {
         </div>
 
         <div className="flex gap-4 items-center">
-          <Avatar className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700">
+          <Avatar
+            onClick={loadSearchBar}
+            className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700"
+          >
             <FiSearch className="text-xl" />
           </Avatar>
           <Avatar
@@ -41,6 +51,8 @@ const Header = ({ text }) => {
           </Avatar>
         </div>
       </div>
+
+      <SearchUser setOpen={setOpen} open={open} />
     </>
   );
 };

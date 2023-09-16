@@ -14,6 +14,7 @@ const Home = () => {
   const seatedCol = useUser((state) => state.seatedCol);
   const seatedRow = useUser((state) => state.seatedRow);
   const batch = useUser((state) => state.batchNumber);
+
   useEffect(() => {
     getSeating();
     const targetElement = document.getElementById(id);
@@ -48,7 +49,7 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-darkBG  h-screen overflow-hidden text-gray-200 max-h-screen w-screen p-4 flex flex-col gap-4 ">
+    <div className="bg-darkBG h-screen overflow-hidden text-gray-200 max-h-screen w-screen p-4 flex flex-col gap-4 ">
       <Header text={"Home"} />
 
       <div className="border flex flex-col items-start  p-4 mt-[80px] border-gray-600 rounded-lg overflow-hidden w-full">

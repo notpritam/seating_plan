@@ -48,6 +48,7 @@ const Home = () => {
       <SelectUser
         selectedUser={selectedUser}
         setSelectedUser={setSelectedUser}
+        handleClick={handleClick}
       />
 
       <Button

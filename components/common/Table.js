@@ -63,7 +63,6 @@ const Table = ({ table }) => {
             rowG.push(item);
             break;
           default:
-            // Handle other cases if needed
             break;
         }
       }
@@ -132,7 +131,7 @@ const Table = ({ table }) => {
             return (
               <div
                 id={cellId}
-                className={`h-[100px] bg-darkBG flex flex-col gap-2 text-center justify-center items-center w-[100px] ${borderBlue}  border border-gray-600 rounded-lg ${opacity}`}
+                className={`h-[100px] bg-gray-950 flex flex-col gap-2 text-center justify-center items-center w-[100px] ${borderBlue}  border border-gray-600 rounded-lg ${opacity}`}
               >
                 <Avatar className="flex items-center justify-center h-[2rem] w-[2rem] border border-gray-700">
                   {getInitials(cell.name)}
@@ -155,21 +154,21 @@ const Table = ({ table }) => {
       <table className="table-fixed relative">
         <thead className="relative">
           <tr className="text-center sticky-header-row  top-0">
-            <th className=" p-2 sticky left-0 bg-gray-900 text-white">Row</th>
-            <th className=" p-2 bg-gray-800">G</th>
-            <th className="  p-2 bg-gray-900">F</th>
-            <th className=" p-2 bg-gray-800">E</th>
-            <th className=" p-2 bg-gray-900">D</th>
-            <th className=" p-2 bg-gray-800">C</th>
-            <th className=" p-2 bg-gray-900">B</th>
-            <th className=" p-2 bg-gray-800">A</th>
+            <th className="  sticky left-0 bg-gray-900 text-white">Row</th>
+            <th className=" text-[12px] opacity-100 bg-gray-800">G</th>
+            <th className=" text-[12px] opacity-100  bg-gray-900">F</th>
+            <th className=" text-[12px] opacity-100 bg-gray-800">E</th>
+            <th className=" text-[12px] opacity-100 bg-gray-900">D</th>
+            <th className=" text-[12px] opacity-100 bg-gray-800">C</th>
+            <th className=" text-[12px] opacity-100 bg-gray-900">B</th>
+            <th className=" text-[12px] opacity-100 bg-gray-800">A</th>
           </tr>
         </thead>
         <tbody>
           {arr.map((item, index) => {
             return (
               <tr key={index} className="text-left   ">
-                <td className=" text-center h-[100%] p-2 sticky left-0 bg-gray-600">
+                <td className=" text-center h-[100%] text-[12px] p-0 sticky left-0 bg-gray-600">
                   {index + 1}
                 </td>
                 {getCellIte(columnG, index, "bg-gray-900", "G")}
