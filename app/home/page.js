@@ -73,7 +73,7 @@ const Home = () => {
         </span>
       </div>
 
-      <div className=" max-h-[60vh]  overflow-auto ">
+      {/* <div className=" max-h-[60vh]  overflow-auto ">
         <div className="flex flex-col gap-4 bg-transparent flex-nowrap h-full border">
           {seatingArrangment.map((row) => (
             <div className="flex  flex-nowrap gap-4">
@@ -91,7 +91,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
