@@ -68,7 +68,9 @@ const Home = () => {
         <span className="capitalize text-xl font-medium">{name}</span>
         <span className="capitalize">Batch :- {batch}</span>
         <span className="capitalize text-[12px]">
-          Mentor :- Dhruv Pascricha
+          Mentor :- {batch == 1 ? "Dhruv Pasricha" : ""}
+          {batch == 2 ? "Diwakar Gupta" : ""}
+          {batch == 3 ? "Parthvik Ajmera" : ""}
         </span>
       </div>
 
