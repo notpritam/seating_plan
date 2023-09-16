@@ -81,3 +81,7 @@
   background-color: #fff; /* Background color for the header row */
   z-index: 2; /* Adjust the z-index as needed to ensure it appears above other elements */
 }
+
+body{
+  background-color: #08090a;
+}

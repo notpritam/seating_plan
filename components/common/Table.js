@@ -154,7 +154,7 @@ const Table = ({ table }) => {
     <div className="overflow-auto max-h-[60vh]">
       <table className="table-fixed relative">
         <thead className="relative">
-          <tr className="text-center sticky  top-0">
+          <tr className="text-center sticky-header-row  top-0">
             <th className=" p-2 sticky left-0 bg-gray-900 text-white">Row</th>
             <th className=" p-2 bg-gray-800">G</th>
             <th className="  p-2 bg-gray-900">F</th>
@@ -168,7 +168,7 @@ const Table = ({ table }) => {
         <tbody>
           {arr.map((item, index) => {
             return (
-              <tr key={index} className="text-left sticky-header-row ">
+              <tr key={index} className="text-left   ">
                 <td className=" text-center h-[100%] p-2 sticky left-0 bg-gray-600">
                   {index + 1}
                 </td>

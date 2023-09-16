@@ -15,7 +15,7 @@ import { useUser } from "@/lib/store/store";
 const SelectUser = ({ selectedUser, setSelectedUser }) => {
   const updateBatch = useUser((state) => state.updateBatch);
   return (
-    <Command className="dark  flex-1 w-full ">
+    <Command className="dark h-[80vh]   flex-1 w-full ">
       <CommandInput
         placeholder="Type a name or search..."
         value={selectedUser}

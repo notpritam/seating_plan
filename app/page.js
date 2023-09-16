@@ -39,7 +39,7 @@ const Home = () => {
     redirect("/home");
   }
   return (
-    <div className="bg-darkBG h-screen w-screen p-4 flex flex-col gap-4 ">
+    <div className="bg-darkBG relative h-screen p-4 flex flex-col gap-4 ">
       <Avatar className="border-[3px] h-[5rem] w-[5rem] border-blue-700">
         <AvatarImage src="img/logo.png" alt="@shadcn" />
         <AvatarFallback>SST</AvatarFallback>
@@ -50,7 +50,10 @@ const Home = () => {
         setSelectedUser={setSelectedUser}
       />
 
-      <Button onClick={handleClick} className="dark w-full">
+      <Button
+        onClick={handleClick}
+        className="dark absolute left-4 right-4  bottom-4"
+      >
         Login
       </Button>
     </div>
