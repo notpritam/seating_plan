@@ -9,9 +9,14 @@ import Table from "@/components/common/Table";
 
 const Home = () => {
   const [seatingArrangment, setSeatingArrangment] = useState([]);
+
+  const id = useUser((state) => state.id);
+  const seatedCol = useUser((state) => state.seatedCol);
+  const seatedRow = useUser((state) => state.seatedRow);
+  const batch = useUser((state) => state.batchNumber);
   useEffect(() => {
     getSeating();
-    const targetElement = document.getElementById("16D");
+    const targetElement = document.getElementById(id);
 
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth" });
@@ -53,12 +58,14 @@ const Home = () => {
             <AvatarFallback>SST</AvatarFallback>
           </Avatar>
           <div className="text-3xl bg-blue-900 font-bold  p-4 rounded-lg">
-            <span>B-4</span>
+            <span>
+              {seatedCol}-{seatedRow}
+            </span>
           </div>
         </div>
 
         <span className="capitalize text-xl font-medium">{name}</span>
-        <span className="capitalize">Batch :- 1</span>
+        <span className="capitalize">Batch :- {batch}</span>
         <span className="capitalize text-[12px]">
           Mentor :- Dhruv Pascricha
         </span>

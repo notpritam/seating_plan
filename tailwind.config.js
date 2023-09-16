@@ -18,6 +18,13 @@ module.exports = {
     extend: {
       colors: {
         darkBG: "#08090a",
+        columnA: "#ffffff",
+        columnB: "#ffffff",
+        columnC: "#ffffff",
+        columnD: "#ffffff",
+        columnE: "#ffffff",
+        columnF: "#ffffff",
+        columnG: "#ffffff",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

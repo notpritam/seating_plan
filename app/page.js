@@ -1,46 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  batch1arr,
-  batch2arr,
-  batch3arr,
-  fetchData,
-} from "@/lib/components/SeatingList";
-import { redirect, useRouter } from "next/navigation";
+
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SelectUser from "@/components/common/SelectUser";
 import { useUser } from "@/lib/store/store";
 
 const Home = () => {
-  const [gridData, setGridData] = useState([]);
-
-  // useEffect(() => {
-  //   getSeating();
-  // }, []);
-
-  // const getSeating = async () => {
-  //   const result = await fetchData();
-
-  //   if (result == "Error") {
-  //     getSeating();
-  //   } else {
-  //     setGridData(result);
-  //   }
-  // };
-
   useEffect(() => {
     console.log(selectedUser);
   }, []);
@@ -49,14 +17,24 @@ const Home = () => {
 
   const name = useUser((state) => state.name);
   const login = useUser((state) => state.login);
+  const selectedBatch = useUser((state) => state.selectedBatch);
 
   const handleClick = () => {
     if (selectedUser == "") {
     } else {
-      login(selectedUser, 1, 1, "not-found");
+      login(
+        selectedUser,
+        selectedBatch,
+        generateUniqueIdFromString(selectedUser + selectedBatch),
+        "not-found"
+      );
     }
   };
 
+  function generateUniqueIdFromString(inputString) {
+    const uniqueId = inputString.replace(/\s+/g, "").toLowerCase();
+    return uniqueId;
+  }
   if (name != null) {
     redirect("/home");
   }

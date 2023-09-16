@@ -1,12 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar } from "../ui/avatar";
+import { useUser } from "@/lib/store/store";
 
 const Table = ({ table }) => {
   console.log(table, "this is table");
   const arr = new Array(9).fill("x");
 
   const [loading, setLoading] = useState(true);
+  const userId = useUser((state) => state.id);
+
+  const updateSeat = useUser((state) => state.updateCol);
+  const updateRow = useUser((state) => state.updateRow);
 
   const [columnA, setColumnA] = useState([]);
   const [columnB, setColumnB] = useState([]);
@@ -75,24 +80,71 @@ const Table = ({ table }) => {
     }
   }, [table]);
 
+  useEffect(() => {
+    handle();
+  }, [loading]);
+
   console.log(columnG, "this is column g");
   function getInitials(name) {
-    // Split the name into words based on spaces
     const words = name.split(" ");
 
-    // Initialize an empty string to store the initials
     let initials = "";
 
-    // Loop through each word and add the first character to the initials string
     for (let i = 0; i < words.length; i++) {
       initials += words[i][0];
     }
 
-    // Convert the initials to uppercase
     initials = initials.toUpperCase();
 
     return initials;
   }
+
+  const handle = () => {
+    const divRef = document.getElementById(userId);
+    if (divRef) {
+      divRef.scrollIntoView({ behavior: "smooth" });
+    }
+    console.log(divRef);
+  };
+
+  function generateUniqueIdFromString(inputString) {
+    const uniqueId = inputString.replace(/\s+/g, "").toLowerCase();
+    return uniqueId;
+  }
+
+  const getCellIte = (tableList, index, color, columnName) => {
+    return (
+      <td className={`p-8 ${color}`}>
+        <div className="flex gap-4">
+          {tableList[index].map((cell) => {
+            const opacity =
+              cell && cell.name === "Blank" ? "opacity-20" : "opacity-100";
+            const cellId = generateUniqueIdFromString(cell.name + cell.batch);
+
+            const borderBlue =
+              cellId == userId ? "border-indigo-900 border-[4px] " : "";
+
+            if (cellId == userId) {
+              updateSeat(columnName);
+              updateRow(index + 1);
+            }
+
+            return (
+              <div
+                id={cellId}
+                className={`h-[100px] bg-darkBG flex flex-col gap-2 text-center justify-center items-center w-[100px] ${borderBlue}  border border-gray-600 rounded-lg ${opacity}`}
+              >
+                <Avatar className="flex items-center justify-center h-[2rem] w-[2rem] border border-gray-700">
+                  {getInitials(cell.name)}
+                </Avatar>
+                <span className="text-[10px]">{cell.name}</span>
+              </div>
+            );
+          })}
+        </div>
+      </td>
+    );
+  };
 
   if (loading) {
     return <div>Loading</div>;
@@ -100,38 +152,33 @@ const Table = ({ table }) => {
 
   return (
     <div className="overflow-auto max-h-[60vh]">
-      <table className="table-fixed ">
-        <thead>
-          <tr className="text-left">
-            <th className="w-10 p-2 sticky left-0 bg-indigo-900 text-white">
-              Row
-            </th>
-            <th className="w-[500px] p-2 bg-gray-600">G</th>
-            <th className=" p-2 bg-gray-600">F</th>
-            <th className=" p-2 bg-gray-600">E</th>
-            <th className=" p-2 bg-gray-600">D</th>
-            <th className=" p-2 bg-gray-600">C</th>
-            <th className=" p-2 bg-gray-600">B</th>
-            <th className=" p-2 bg-gray-600">A</th>
+      <table className="table-fixed relative">
+        <thead className="relative">
+          <tr className="text-center sticky  top-0">
+            <th className=" p-2 sticky left-0 bg-gray-900 text-white">Row</th>
+            <th className=" p-2 bg-gray-800">G</th>
+            <th className="  p-2 bg-gray-900">F</th>
+            <th className=" p-2 bg-gray-800">E</th>
+            <th className=" p-2 bg-gray-900">D</th>
+            <th className=" p-2 bg-gray-800">C</th>
+            <th className=" p-2 bg-gray-900">B</th>
+            <th className=" p-2 bg-gray-800">A</th>
           </tr>
         </thead>
         <tbody>
           {arr.map((item, index) => {
             return (
-              <tr key={index} className="text-left">
-                <td className="w-10 p-2 sticky left-0 bg-indigo-800">
+              <tr key={index} className="text-left sticky-header-row ">
+                <td className=" text-center h-[100%] p-2 sticky left-0 bg-gray-600">
                   {index + 1}
                 </td>
-                <td className="w-[500px] flex gap-4 p-2">
-                  {columnG[index].map((cell) => (
-                    <div className="h-[150px] flex flex-col text-center justify-center items-center w-[150px] border rounded-lg">
-                      <Avatar className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700">
-                        {getInitials(cell.name)}
-                      </Avatar>
-                      <span>{cell.name}</span>
-                    </div>
-                  ))}
-                </td>
+                {getCellIte(columnG, index, "bg-gray-900", "G")}
+                {getCellIte(columnF, index, "bg-gray-800", "F")}
+                {getCellIte(columnE, index, "bg-gray-900", "E")}
+                {getCellIte(columnD, index, "bg-gray-800", "D")}
+                {getCellIte(columnC, index, "bg-gray-900", "C")}
+                {getCellIte(columnB, index, "bg-gray-800", "B")}
+                {getCellIte(columnA, index, "bg-gray-900", "A")}
               </tr>
             );
           })}
@@ -142,18 +189,3 @@ const Table = ({ table }) => {
 };
 
 export default Table;
-
-// const getCellIte = ({ tableList }) => {
-//   return (
-//     <td className="w-[500px] flex gap-4 p-2">
-//       {tableList[index].map((cell) => (
-//         <div className="h-[150px] flex flex-col text-center justify-center items-center w-[150px] border rounded-lg">
-//           <Avatar className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700">
-//             {getInitials(cell.name)}
-//           </Avatar>
-//           <span>{cell.name}</span>
-//         </div>
-//       ))}
-//     </td>
-//   );
-// };

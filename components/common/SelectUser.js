@@ -1,3 +1,5 @@
+"use client";
+
 import { batch1arr, batch2arr, batch3arr } from "@/lib/components/SeatingList";
 import {
   Command,
@@ -8,8 +10,10 @@ import {
   CommandList,
   CommandSeparator,
 } from "../ui/command";
+import { useUser } from "@/lib/store/store";
 
 const SelectUser = ({ selectedUser, setSelectedUser }) => {
+  const updateBatch = useUser((state) => state.updateBatch);
   return (
     <Command className="dark  flex-1 w-full ">
       <CommandInput
@@ -27,6 +31,7 @@ const SelectUser = ({ selectedUser, setSelectedUser }) => {
               onSelect={(currentValue) => {
                 console.log(currentValue);
                 setSelectedUser(currentValue);
+                updateBatch(1);
               }}
               key={index}
             >
@@ -42,6 +47,7 @@ const SelectUser = ({ selectedUser, setSelectedUser }) => {
               onSelect={(currentValue) => {
                 console.log(currentValue);
                 setSelectedUser(currentValue);
+                updateBatch(2);
               }}
               key={index}
             >
@@ -56,6 +62,7 @@ const SelectUser = ({ selectedUser, setSelectedUser }) => {
               onSelect={(currentValue) => {
                 console.log(currentValue);
                 setSelectedUser(currentValue);
+                updateBatch(3);
               }}
               key={index}
             >
