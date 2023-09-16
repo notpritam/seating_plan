@@ -7,7 +7,7 @@ import {
   batch3arr,
   fetchData,
 } from "@/lib/components/SeatingList";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Command,
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/command";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SelectUser from "@/components/common/SelectUser";
+import { useUser } from "@/lib/store/store";
 
 const Home = () => {
   const [gridData, setGridData] = useState([]);
@@ -46,12 +47,19 @@ const Home = () => {
 
   const [selectedUser, setSelectedUser] = useState();
 
+  const name = useUser((state) => state.name);
+  const login = useUser((state) => state.login);
+
   const handleClick = () => {
     if (selectedUser == "") {
     } else {
+      login(selectedUser, 1, 1, "not-found");
     }
   };
 
+  if (name != null) {
+    redirect("/home");
+  }
   return (
     <div className="bg-darkBG h-screen w-screen p-4 flex flex-col gap-4 ">
       <Avatar className="border-[3px] h-[5rem] w-[5rem] border-blue-700">
@@ -64,7 +72,9 @@ const Home = () => {
         setSelectedUser={setSelectedUser}
       />
 
-      <Button className="dark w-full">Login</Button>
+      <Button onClick={handleClick} className="dark w-full">
+        Login
+      </Button>
     </div>
   );
 };
