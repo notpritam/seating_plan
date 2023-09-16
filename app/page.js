@@ -52,7 +52,7 @@ const Home = () => {
 
       <Button
         onClick={handleClick}
-        className="dark absolute left-4 right-4  bottom-4"
+        className="dark absolute left-4 right-4  bottom-12"
       >
         Login
       </Button>
