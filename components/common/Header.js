@@ -29,10 +29,6 @@ const Header = ({ text }) => {
             </SheetTrigger>
           </Sidebar>
 
-          {/* <Avatar className="border-[3px] border-blue-700">
-        <AvatarImage src="img/logo.png" alt="@shadcn" />
-        <AvatarFallback>SST</AvatarFallback>
-      </Avatar> */}
           <span className="text-white font-medium text-xl">{text}</span>
         </div>
 

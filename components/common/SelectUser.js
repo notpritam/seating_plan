@@ -1,6 +1,13 @@
 "use client";
 
-import { batch1arr, batch2arr, batch3arr } from "@/lib/components/SeatingList";
+import {
+  batch1arr,
+  batch2arr,
+  batch3arr,
+  mainBatch1arr,
+  mainBatch2arr,
+  mainBatch3arr,
+} from "@/lib/components/SeatingList";
 import {
   Command,
   CommandEmpty,
@@ -12,8 +19,25 @@ import {
 } from "../ui/command";
 import { useUser } from "@/lib/store/store";
 
-const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
+const SelectUser = ({ selectedUser, setSelectedUser }) => {
   const updateBatch = useUser((state) => state.updateBatch);
+  const login = useUser((state) => state.login);
+
+  function generateUniqueIdFromString(inputString) {
+    const uniqueId = inputString.replace(/\s+/g, "").toLowerCase();
+    return uniqueId;
+  }
+
+  const handleClick = (currentValue, batch) => {
+    login(
+      currentValue,
+      batch,
+      generateUniqueIdFromString(currentValue + batch),
+      "not-found"
+    );
+    updateBatch(1);
+  };
+
   return (
     <Command className="dark overflow-hidden  flex-1 w-full ">
       <CommandInput
@@ -26,12 +50,19 @@ const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
       <CommandList className="h-full ">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Batch 1">
-          {batch1arr.map((item, index) => (
+          {mainBatch1arr.map((item, index) => (
             <CommandItem
+              onClick={() => {
+                console.log(currentValue, "this is ussdsder");
+              }}
               onSelect={(currentValue) => {
-                console.log(currentValue);
-                setSelectedUser(currentValue);
-                updateBatch(1);
+                const my = mainBatch1arr.filter((item) =>
+                  item.toLowerCase().includes(currentValue.toLowerCase())
+                );
+
+                console.log(my[0]);
+
+                handleClick(my[0], 1);
               }}
               key={index}
             >
@@ -42,12 +73,16 @@ const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
         <CommandSeparator />
 
         <CommandGroup heading="Batch 2">
-          {batch2arr.map((item, index) => (
+          {mainBatch2arr.map((item, index) => (
             <CommandItem
               onSelect={(currentValue) => {
-                console.log(currentValue);
-                setSelectedUser(currentValue);
-                updateBatch(2);
+                const my = mainBatch2arr.filter((item) =>
+                  item.toLowerCase().includes(currentValue.toLowerCase())
+                );
+
+                console.log(my[0]);
+
+                handleClick(my[0], 2);
               }}
               key={index}
             >
@@ -57,12 +92,15 @@ const SelectUser = ({ selectedUser, setSelectedUser, handleClick }) => {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Batch 3">
-          {batch3arr.map((item, index) => (
+          {mainBatch3arr.map((item, index) => (
             <CommandItem
               onSelect={(currentValue) => {
-                console.log(currentValue);
-                setSelectedUser(currentValue);
-                updateBatch(3);
+                const my = mainBatch3arr.filter((item) =>
+                  item.toLowerCase().includes(currentValue.toLowerCase())
+                );
+
+                console.log(my[0]);
+                handleClick(my[0], 2);
               }}
               key={index}
             >

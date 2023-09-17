@@ -15,15 +15,15 @@ export default function Sidebar({ children }) {
   return (
     <Sheet className="dark">
       {children}
-      <SheetContent className="dark">
-        <SheetHeader>
+      <SheetContent className="">
+        <SheetHeader className="">
           <SheetTitle>SST</SheetTitle>
           <SheetDescription>Still in development</SheetDescription>
         </SheetHeader>
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Close</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
