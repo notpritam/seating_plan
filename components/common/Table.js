@@ -4,7 +4,6 @@ import { Avatar } from "../ui/avatar";
 import { useUser } from "@/lib/store/store";
 
 const Table = ({ table }) => {
-  console.log(table, "this is table");
   const arr = new Array(9).fill("x");
 
   const [loading, setLoading] = useState(true);
@@ -87,7 +86,7 @@ const Table = ({ table }) => {
   useEffect(() => {
     handle({ userId: searchedId });
 
-    console.log("this is searcjedId", searchedId);
+    console.log("this isshivansh singh searcjedId", searchedId);
   }, [searchedId]);
 
   console.log(columnG, "this is column g");

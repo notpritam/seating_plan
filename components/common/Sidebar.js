@@ -13,11 +13,11 @@ import {
 
 export default function Sidebar({ children }) {
   return (
-    <Sheet className="dark">
+    <Sheet className="dark bg-white">
       {children}
-      <SheetContent className="">
+      <SheetContent className="bg-black">
         <SheetHeader className="">
-          <SheetTitle>SST</SheetTitle>
+          <SheetTitle className="text-white">SST</SheetTitle>
           <SheetDescription>Still in development</SheetDescription>
         </SheetHeader>
 

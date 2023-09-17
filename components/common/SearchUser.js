@@ -36,6 +36,11 @@ export function SearchUser({ setOpen, open }) {
   const setSearchedBatch = useUser((state) => state.setSearchedBatch);
   const setSearchedId = useUser((state) => state.setSearchedId);
 
+  function generateUniqueIdFromString(inputString) {
+    const uniqueId = inputString.replace(/\s+/g, "").toLowerCase();
+    return uniqueId;
+  }
+
   const handleSearch = () => {
     console.log(searchedUser, "this is searched");
     const searched = generateUniqueIdFromString(searchedUser) + searchedBatch;
@@ -43,10 +48,19 @@ export function SearchUser({ setOpen, open }) {
     setOpen((open) => !open);
   };
 
-  function generateUniqueIdFromString(inputString) {
-    const uniqueId = inputString.replace(/\s+/g, "").toLowerCase();
-    return uniqueId;
+  const handleClick = (currentValue, batch) => {
+    // console.log(searchedUser, "this is searched");
+    const searched = generateUniqueIdFromString(currentValue + batch);
+    setSearchedId(searched);
+    setOpen((open) => !open);
+  };
+
+  function delay(milliseconds) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, milliseconds);
+    });
   }
+
   return (
     <CommandDialog className="dark" open={open} onOpenChange={setOpen}>
       <CommandInput
@@ -62,9 +76,19 @@ export function SearchUser({ setOpen, open }) {
           {mainBatch1arr.map((item, index) => (
             <CommandItem
               onSelect={(currentValue) => {
-                console.log(currentValue);
+                // console.log(currentValue);
+                // setSearchedBatch(1);
+
+                const my = mainBatch1arr.filter((item) =>
+                  item.toLowerCase().includes(currentValue.toLowerCase())
+                );
+
+                console.log(my[0]);
+
                 setSearchedUser(currentValue);
-                setSearchedBatch(1);
+                delay(2000);
+
+                handleClick(my[0], 1);
               }}
               key={index}
             >
@@ -78,9 +102,19 @@ export function SearchUser({ setOpen, open }) {
           {mainBatch2arr.map((item, index) => (
             <CommandItem
               onSelect={(currentValue) => {
-                console.log(currentValue);
+                // console.log(currentValue);
+                // setSearchedUser(currentValue);
+
+                const my = mainBatch2arr.filter((item) =>
+                  item.toLowerCase().includes(currentValue.toLowerCase())
+                );
+
+                console.log(my[0]);
                 setSearchedUser(currentValue);
-                setSearchedBatch(2);
+
+                delay(2000);
+
+                handleClick(my[0], 1);
               }}
               key={index}
             >
@@ -94,9 +128,19 @@ export function SearchUser({ setOpen, open }) {
             <CommandItem
               onClick={() => console.log(searchedUser, "this is user")}
               onSelect={(currentValue) => {
-                console.log(currentValue);
+                // console.log(currentValue);
+                // setSearchedUser(currentValue);
+                // setSearchedBatch(3);
+
+                const my = mainBatch3arr.filter((item) =>
+                  item.toLowerCase().includes(currentValue.toLowerCase())
+                );
+
+                console.log(my[0]);
                 setSearchedUser(currentValue);
-                setSearchedBatch(3);
+                delay(2000);
+
+                handleClick(my[0], 1);
               }}
               key={index}
             >
@@ -105,9 +149,6 @@ export function SearchUser({ setOpen, open }) {
           ))}
         </CommandGroup>
       </CommandList>
-      <Button onClick={handleSearch} className="mt-12 mb-4 m-2">
-        Search
-      </Button>
     </CommandDialog>
   );
 }
