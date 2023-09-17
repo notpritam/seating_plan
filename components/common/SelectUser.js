@@ -100,7 +100,7 @@ const SelectUser = ({ selectedUser, setSelectedUser }) => {
                 );
 
                 console.log(my[0]);
-                handleClick(my[0], 2);
+                handleClick(my[0], 3);
               }}
               key={index}
             >
