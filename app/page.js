@@ -1,8 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
 
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SelectUser from "@/components/common/SelectUser";

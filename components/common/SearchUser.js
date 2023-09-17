@@ -49,17 +49,10 @@ export function SearchUser({ setOpen, open }) {
   };
 
   const handleClick = (currentValue, batch) => {
-    // console.log(searchedUser, "this is searched");
     const searched = generateUniqueIdFromString(currentValue + batch);
     setSearchedId(searched);
     setOpen((open) => !open);
   };
-
-  function delay(milliseconds) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, milliseconds);
-    });
-  }
 
   return (
     <CommandDialog className="dark" open={open} onOpenChange={setOpen}>
@@ -76,17 +69,11 @@ export function SearchUser({ setOpen, open }) {
           {mainBatch1arr.map((item, index) => (
             <CommandItem
               onSelect={(currentValue) => {
-                // console.log(currentValue);
-                // setSearchedBatch(1);
-
                 const my = mainBatch1arr.filter((item) =>
                   item.toLowerCase().includes(currentValue.toLowerCase())
                 );
 
-                console.log(my[0]);
-
                 setSearchedUser(currentValue);
-                delay(2000);
 
                 handleClick(my[0], 1);
               }}
@@ -102,19 +89,13 @@ export function SearchUser({ setOpen, open }) {
           {mainBatch2arr.map((item, index) => (
             <CommandItem
               onSelect={(currentValue) => {
-                // console.log(currentValue);
-                // setSearchedUser(currentValue);
-
                 const my = mainBatch2arr.filter((item) =>
                   item.toLowerCase().includes(currentValue.toLowerCase())
                 );
-
                 console.log(my[0]);
                 setSearchedUser(currentValue);
 
-                delay(2000);
-
-                handleClick(my[0], 1);
+                handleClick(my[0], 2);
               }}
               key={index}
             >
@@ -128,19 +109,13 @@ export function SearchUser({ setOpen, open }) {
             <CommandItem
               onClick={() => console.log(searchedUser, "this is user")}
               onSelect={(currentValue) => {
-                // console.log(currentValue);
-                // setSearchedUser(currentValue);
-                // setSearchedBatch(3);
-
                 const my = mainBatch3arr.filter((item) =>
                   item.toLowerCase().includes(currentValue.toLowerCase())
                 );
-
                 console.log(my[0]);
                 setSearchedUser(currentValue);
-                delay(2000);
 
-                handleClick(my[0], 1);
+                handleClick(my[0], 3);
               }}
               key={index}
             >
