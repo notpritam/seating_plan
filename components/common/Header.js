@@ -11,7 +11,7 @@ import { SearchUser } from "./SearchUser";
 import { useState } from "react";
 
 const Header = ({ text }) => {
-  const loadSearchBar = (e) => {
+  const logoutloadSearchBar = (e) => {
     setOpen((open) => !open);
   };
   const [open, setOpen] = useState(false);
@@ -34,16 +34,10 @@ const Header = ({ text }) => {
 
         <div className="flex gap-4 items-center">
           <Avatar
-            onClick={loadSearchBar}
-            className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700"
-          >
-            <FiSearch className="text-xl" />
-          </Avatar>
-          <Avatar
             onClick={logout}
             className="flex items-center justify-center h-[2.5rem] w-[2.5rem] border border-gray-700"
           >
-            <FiLogOut className="text-xl" />
+            <FiSearch className="text-xl" />
           </Avatar>
         </div>
       </div>

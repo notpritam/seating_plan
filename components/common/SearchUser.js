@@ -41,13 +41,6 @@ export function SearchUser({ setOpen, open }) {
     return uniqueId;
   }
 
-  const handleSearch = () => {
-    console.log(searchedUser, "this is searched");
-    const searched = generateUniqueIdFromString(searchedUser) + searchedBatch;
-    setSearchedId(searched);
-    setOpen((open) => !open);
-  };
-
   const handleClick = (currentValue, batch) => {
     const searched = generateUniqueIdFromString(currentValue + batch);
     setSearchedId(searched);

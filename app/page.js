@@ -22,7 +22,7 @@ const Home = () => {
         <AvatarImage src="img/logo.png" alt="@shadcn" />
         <AvatarFallback>SST</AvatarFallback>
       </Avatar>
-      <span className="text-white text-[30px] font-bold">Login</span>
+      <span className="text-white text-[30px] font-bold">Select a name</span>
       <SelectUser
         selectedUser={selectedUser}
         setSelectedUser={setSelectedUser}

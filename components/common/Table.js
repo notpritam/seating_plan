@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "../ui/avatar";
 import { useUser } from "@/lib/store/store";
 
@@ -128,10 +128,7 @@ const Table = ({ table }) => {
             const cellId = generateUniqueIdFromString(cell.name + cell.batch);
 
             const borderBlue =
-              cellId == userId ? "border-indigo-900 border-[4px] " : "";
-
-            const searchedDesign =
-              cellId == searchedId ? "border-green-600 border-[4px] " : "";
+              cellId == userId ? "border-green-600 border-[4px] " : "";
 
             if (cellId == userId) {
               updateSeat(columnName);
@@ -141,7 +138,7 @@ const Table = ({ table }) => {
             return (
               <div
                 id={cellId}
-                className={`h-[100px] bg-gray-950 flex flex-col gap-2 text-center justify-center items-center w-[100px] ${borderBlue} ${searchedDesign}  border border-gray-600 rounded-lg ${opacity}`}
+                className={`h-[100px] bg-gray-950 flex flex-col gap-2 text-center justify-center items-center w-[100px] ${borderBlue} border border-gray-600 rounded-lg ${opacity}`}
               >
                 <Avatar className="flex items-center justify-center h-[2rem] w-[2rem] border border-gray-700">
                   {getInitials(cell.name)}
